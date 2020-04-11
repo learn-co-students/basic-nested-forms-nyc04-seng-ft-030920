@@ -1,14 +1,17 @@
 class PeopleController < ApplicationController
+  def show
+    @person = Person.find(params[:id])
+  end
+  
   def new
     @person = Person.new
-    @person.addresses.build(address_type: 'home')
-
+    @person.addresses.build(address_type: 'Home')
+    @person.addresses.build(address_type: 'Work')
   end
 
   def create    
-    byebug
     Person.create(person_params)
-    redirect_to people_path
+    redirect_to person_path(@person)
   end
 
   def index
